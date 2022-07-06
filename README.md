@@ -1,4 +1,4 @@
-# timeftm
+# timefmt
 
 ## Date[F DateFormat]
 
