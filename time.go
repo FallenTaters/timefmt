@@ -18,13 +18,21 @@ type Time[F TimeFormat] struct {
 	t time.Time
 }
 
-func (t Time[F]) format() string {
-	var f F
-	return f.TimeFormat()
+func NewTime[T TimeFormat](year int, month time.Month, day, hour, min, sec, nsec int, loc *time.Location) Time[T] {
+	return Time[T]{time.Date(year, month, day, hour, min, sec, nsec, loc)}
 }
 
 func TimeFrom[T TimeFormat](t time.Time) Time[T] {
 	return Time[T]{t}
+}
+
+func ParseTime[T TimeFormat](input string) (Time[T], error) {
+	tim, err := time.Parse((*new(T)).TimeFormat(), input)
+	return Time[T]{tim}, err
+}
+
+func (t Time[F]) format() string {
+	return (*new(F)).TimeFormat()
 }
 
 func (t Time[F]) Time() time.Time {
