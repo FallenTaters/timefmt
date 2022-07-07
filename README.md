@@ -4,6 +4,10 @@
 
 A fully comparable date object that always formats to the specified format. Meant to be used for encoding when time is irrelevant.
 
+## Time[F TimeFormat]
+
+Like Date but doesn't strip time and zone component.
+
 ## Example
 
 ```go
