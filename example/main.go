@@ -1,16 +1,3 @@
-# timefmt
-
-## Date[F DateFormat]
-
-A fully comparable date object that always formats to the specified format. Meant to be used for encoding when time is irrelevant.
-
-## Time[F TimeFormat]
-
-Like Date but doesn't strip time and zone component.
-
-## Example
-
-```go
 package main
 
 import (
@@ -72,23 +59,3 @@ type predefined struct {
 	RFC3339          timefmt.Time[timefmt.RFC3339]          // 2006-01-02T15:04:05Z07:00
 	YearMonthDayTime timefmt.Time[timefmt.YearMonthDayTime] // 2006-01-02 15:04:05
 }
-```
-
-## Description
-
-* Compatible with
-    * `encoding/*`
-        * through `encoding.TextUnmarshaler` and `encoding.TextMarshaler`
-    * `database/sql` and `database/sql/driver`
-        * through `sql.Scanner` and `driver.Valuer`
-
-* Easy conversion
-    * types can be cast to each other to quickly convert between formats
-
-* Dates Comparable
-    * hour, minute, second, nanoseconds and timezone are stripped when using `DateFrom`
-
-* Custom formats
-    * some formats predefined, see example above
-    * easy to define new format struct
-
