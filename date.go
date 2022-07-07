@@ -14,17 +14,21 @@ type Date[F DateFormat] struct {
 	t time.Time
 }
 
-func (d Date[F]) format() string {
-	var f F
-	return f.DateFormat()
-}
-
 func NewDate[T DateFormat](year int, month time.Month, day int) Date[T] {
 	return Date[T]{time.Date(year, month, day, 0, 0, 0, 0, time.UTC)}
 }
 
 func DateFrom[T DateFormat](t time.Time) Date[T] {
 	return Date[T]{time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, time.UTC)}
+}
+
+func ParseDate[T DateFormat](input string) (Date[T], error) {
+	tim, err := time.Parse((*new(T)).DateFormat(), input)
+	return DateFrom[T](tim), err
+}
+
+func (d Date[F]) format() string {
+	return (*new(F)).DateFormat()
 }
 
 func (d Date[F]) Time() time.Time {
@@ -67,7 +71,7 @@ func (d Date[F]) Value() (driver.Value, error) {
 func (d *Date[F]) UnmarshalText(data []byte) error {
 	tim, err := time.Parse(d.format(), string(data))
 	if err == nil {
-		*d = Date[F]{tim}
+		*d = DateFrom[F](tim)
 	}
 
 	return err
