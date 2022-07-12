@@ -74,9 +74,10 @@ func TestTimeScan(t *testing.T) {
 			expectErr: `scan failed: cannot unmarshal variable of type int into timefmt.Time[timefmt.RFC3339]`,
 		},
 		{
-			name:      `bad format`,
-			input:     `213-4=vdf&`,
-			expectErr: `scan failed: cannot unmarshal 213-4=vdf& into timefmt.Time[timefmt.RFC3339]: parsing time "213-4=vdf&" as "2006-01-02T15:04:05Z07:00": cannot parse "4=vdf&" as "2006"`,
+			name:  `bad format`,
+			input: `213-4=vdf&`,
+			expectErr: `scan failed: cannot unmarshal 213-4=vdf& into timefmt.Time[timefmt.RFC3339]: ` +
+				`parsing time "213-4=vdf&" as "2006-01-02T15:04:05Z07:00": cannot parse "4=vdf&" as "2006"`,
 		},
 	}
 

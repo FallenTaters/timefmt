@@ -99,9 +99,10 @@ func TestDateScan(t *testing.T) {
 			expectErr: `scan failed: cannot unmarshal variable of type int into timefmt.Date[timefmt.ISO8601Date]`,
 		},
 		{
-			name:      `bad format`,
-			input:     `213-4=vdf&`,
-			expectErr: `scan failed: cannot unmarshal 213-4=vdf& into timefmt.Date[timefmt.ISO8601Date]: parsing time "213-4=vdf&" as "2006-01-02": cannot parse "4=vdf&" as "2006"`,
+			name:  `bad format`,
+			input: `213-4=vdf&`,
+			expectErr: `scan failed: cannot unmarshal 213-4=vdf& into timefmt.Date[timefmt.ISO8601Date]: ` +
+				`parsing time "213-4=vdf&" as "2006-01-02": cannot parse "4=vdf&" as "2006"`,
 		},
 	}
 
@@ -172,8 +173,7 @@ func TestDateMarshalText(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	expected := `2020-03-01`
-	if string(actual) != expected {
+	if expected := `2020-03-01`; string(actual) != expected {
 		t.Errorf(`should be %s but is %s`, expected, actual)
 	}
 }

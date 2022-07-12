@@ -1,0 +1,30 @@
+run:
+  timeout: 1m
+  build-tags: []
+  skip-dirs: []
+  skip-files: []
+
+output:
+  format: colored-line-number
+  print-issues-lines: true
+  print-linter-name: true
+
+linters:
+  enable-all: true
+  disable:
+    - wsl
+    - nlreturn
+    - paralleltest
+    - varnamelen
+
+issues:
+  exclude-rules:
+    - path: _test.go
+      linters:
+        - scopelint
+        - funlen
+        - dupl
+        - gochecknoglobals
+  exclude-use-default: false
+  max-per-linter: 0
+  max-same-issues: 0
